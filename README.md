@@ -84,11 +84,13 @@ When you run `uv pip install -e .`, all necessary Milvus components are installe
 - protobuf==3.20.0
 - grpcio-tools
 
-No separate installation or Docker setup is required. Milvus Lite will automatically handle database creation and management.
+No separate installation or Docker setup is required. The MilvusClient in the core library automatically handles database initialization and management.
 
 To configure Milvus:
 1. Copy `.env.example` to `.env`
 2. Set `DB_PATH` in your `.env` file (defaults to ./milvus.db)
+
+The database will be automatically initialized when you first use DeepSearcher. No manual setup is needed - just configure DB_PATH in .env.
 
 ### Quick start demo
 DeepSearcher provides an interactive demo that guides you through setup and querying:
