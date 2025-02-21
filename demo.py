@@ -20,7 +20,7 @@ def confirm_env_var(var_name: str, default: str = None, hide_input: bool = False
         # Show found value and confirm
         display_value = '*' * 8 if hide_input else current_value
         click.echo(f"Found {var_name} in environment: {display_value}")
-        if not click.confirm("Is this correct? [Y/n]", default=True):
+        if not click.confirm("Is this correct?", default=True, show_default=True):
             current_value = click.prompt(
                 f"Please enter new value for {var_name}",
                 default=default,
