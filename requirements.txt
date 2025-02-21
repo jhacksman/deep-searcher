@@ -2,7 +2,9 @@ argparse
 firecrawl-py
 langchain_text_splitters
 pdfplumber
-pymilvus[model]
+pymilvus[model]>=2.5.4
+protobuf==3.20.0
+grpcio-tools
 openai
 numpy
 tqdm
