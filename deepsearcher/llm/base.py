@@ -27,26 +27,31 @@ class BaseLLM(ABC):
             end_of_think = response_content.find("</think>") + len("</think>")
             response_content = response_content[end_of_think:]
 
-        try:
-            if response_content.startswith("```") and response_content.endswith("```"):
-                if response_content.startswith("```python"):
-                    response_content = response_content[9:-3]
-                elif response_content.startswith("```json"):
-                    response_content = response_content[7:-3]
-                elif response_content.startswith("```str"):
-                    response_content = response_content[6:-3]
-                elif response_content.startswith("```\n"):
-                    response_content = response_content[4:-3]
-                else:
-                    raise ValueError("Invalid code block format")
-            result = ast.literal_eval(response_content.strip())
-        except:
-            matches = re.findall(r'(\[.*?\]|\{.*?\})', response_content, re.DOTALL)
+        # If it's a code block, parse its contents
+        if response_content.startswith("```") and response_content.endswith("```"):
+            if response_content.startswith("```python"):
+                response_content = response_content[9:-3]
+            elif response_content.startswith("```json"):
+                response_content = response_content[7:-3]
+            elif response_content.startswith("```str"):
+                response_content = response_content[6:-3]
+            elif response_content.startswith("```\n"):
+                response_content = response_content[4:-3]
+            else:
+                raise ValueError("Invalid code block format")
+            
+            try:
+                return ast.literal_eval(response_content.strip())
+            except:
+                pass
 
-            if len(matches) != 1:
-                raise ValueError(f"Invalid JSON/List format for response content:\n{response_content}")
+        # Try to find and parse JSON/List content
+        matches = re.findall(r'(\[.*?\]|\{.*?\})', response_content, re.DOTALL)
+        if matches:
+            try:
+                return ast.literal_eval(matches[0])
+            except:
+                pass
 
-            json_part = matches[0]
-            return ast.literal_eval(json_part)
-
-        return result
+        # If no special format is detected, return the plain text
+        return response_content.strip()
