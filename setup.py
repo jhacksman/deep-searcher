@@ -8,6 +8,8 @@ setup(
     packages=find_packages(exclude=["tests", "examples"]),
     install_requires=[
         'argparse',
+        'click>=8.0.0',
+        'python-dotenv>=0.19.0',
         'firecrawl-py',
         'langchain_text_splitters',
         'pdfplumber',
