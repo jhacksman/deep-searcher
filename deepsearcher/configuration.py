@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 import yaml
 
 from typing import Literal
@@ -8,6 +9,8 @@ from deepsearcher.llm.base import BaseLLM
 from deepsearcher.loader.file_loader.base import BaseLoader
 from deepsearcher.loader.web_crawler.base import BaseCrawler
 from deepsearcher.vector_db.base import BaseVectorDB
+
+load_dotenv()  # Load environment variables from .env file
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
