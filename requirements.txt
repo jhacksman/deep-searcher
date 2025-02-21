@@ -10,3 +10,4 @@ termcolor
 fastapi
 uvicorn
 pydantic-settings
+python-dotenv>=0.19.0
