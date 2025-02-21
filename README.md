@@ -79,12 +79,16 @@ DeepSearcher uses Milvus Lite for vector storage, which is automatically include
 - protobuf==3.20.0
 - grpcio-tools
 
-When you run `uv pip install -e .`, all necessary Milvus components are installed in your uv environment. No separate installation or Docker setup is required.
+When you run `uv pip install -e .`, all necessary Milvus components are installed in your uv environment:
+- pymilvus[model]>=2.5.4 (includes Milvus Lite)
+- protobuf==3.20.0
+- grpcio-tools
+
+No separate installation or Docker setup is required. Milvus Lite will automatically handle database creation and management.
 
 To configure Milvus:
 1. Copy `.env.example` to `.env`
 2. Set `DB_PATH` in your `.env` file (defaults to ./milvus.db)
-3. Run `python demo.py` - this will create the database file automatically when first launched
 
 ### Quick start demo
 DeepSearcher provides an interactive demo that guides you through setup and querying:
