@@ -21,13 +21,53 @@ DeepSearcher combines reasoning LLMs (OpenAI o1, o3-mini, DeepSeek, Grok 3 etc.)
 ## 📖 Quick Start
 
 ### Installation
-Install DeepSearcher using pip:
+Install DeepSearcher using either uv (recommended) or pip:
+
+#### Using uv (Recommended)
+
+##### Linux
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh && \
+git clone https://github.com/jhacksman/deep-searcher.git && cd deep-searcher && \
+uv venv && source .venv/bin/activate && uv pip install -e .
+```
+
+##### Windows
+```cmd
+# Download uv from https://github.com/astral/uv/releases, then:
+git clone https://github.com/jhacksman/deep-searcher.git && cd deep-searcher && \
+uv venv && .venv\Scripts\activate && uv pip install -e .
+```
+
+##### macOS
+```bash
+# Install Homebrew if not installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install uv
+brew install uv
+
+# Verify installation
+uv --version
+
+# Clone and set up project
+git clone https://github.com/jhacksman/deep-searcher.git
+cd deep-searcher
+
+# Create and activate virtual environment
+uv venv
+source .venv/bin/activate
+
+# Install project dependencies
+uv pip install -e .
+```
+
+#### Using pip (Alternative)
 ```bash
 # Clone the repository
-git clone https://github.com/zilliztech/deep-searcher.git
+git clone https://github.com/jhacksman/deep-searcher.git
 
 # MAKE SURE the python version is greater than or equal to 3.10
-# Recommended: Create a Python virtual environment
 cd deep-searcher
 python3 -m venv .venv
 source .venv/bin/activate
