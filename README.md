@@ -62,19 +62,7 @@ source .venv/bin/activate
 uv pip install -e .
 ```
 
-#### Using pip (Alternative)
-```bash
-# Clone the repository
-git clone https://github.com/jhacksman/deep-searcher.git
 
-# MAKE SURE the python version is greater than or equal to 3.10
-cd deep-searcher
-python3 -m venv .venv
-source .venv/bin/activate
-
-# Install dependencies
-pip install -e .
-```
 
 ### Environment Variables
 The following environment variables can be configured in a `.env` file:
