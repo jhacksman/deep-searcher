@@ -60,28 +60,7 @@ def setup_env_vars():
         default=DEFAULT_MODEL
     )
 
-def setup_milvus():
-    """Configure Milvus with local database."""
-    config = Configuration()
-    
-    # Check if DB_PATH exists in .env
-    db_path = confirm_env_var("DB_PATH", default=DEFAULT_DB_PATH)
-    
-    # Ensure directory exists
-    db_dir = os.path.dirname(os.path.abspath(db_path))
-    os.makedirs(db_dir, exist_ok=True)
-    
-    config.set_provider_config(
-        "vector_db",
-        "Milvus",
-        {
-            "uri": db_path,
-            "default_collection": "deepsearcher",
-            "token": "root:Milvus",
-            "db": "default"
-        }
-    )
-    return config
+
 
 def load_data():
     """Prompt for and load data."""
@@ -107,17 +86,16 @@ def main():
         click.echo("Step 1: Configure OpenAI API")
         setup_env_vars()
         
-        # Configure Milvus
-        click.echo("\nStep 2: Configure local database")
-        config = setup_milvus()
+        # Initialize configuration
+        config = Configuration()
         init_config(config)
         
         # Load data
-        click.echo("\nStep 3: Load data")
+        click.echo("\nStep 2: Load data")
         load_data()
         
         # Get question
-        click.echo("\nStep 4: Ask a question")
+        click.echo("\nStep 3: Ask a question")
         question = click.prompt("Enter your question")
         
         # Query and display result
