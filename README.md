@@ -35,7 +35,14 @@ source .venv/bin/activate
 # Install dependencies
 pip install -e .
 ```
-Prepare your `OPENAI_API_KEY` in your environment variables. If you change the LLM in the configuration, make sure to prepare the corresponding API key.
+
+### Environment Variables
+The following environment variables can be configured in a `.env` file:
+- `OPENAI_BASE_URL`: Base URL for OpenAI-compatible API (e.g., https://api.venice.ai/v1)
+- `OPENAI_API_KEY`: API key for authentication
+- `OPENAI_MODEL`: Model to use (e.g., deepseek-r1-671b)
+
+You can copy the `.env.example` file to `.env` and update the values according to your setup.
 
 ### Quick start demo
 ```python
