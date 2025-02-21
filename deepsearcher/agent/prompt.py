@@ -18,6 +18,7 @@ When you return, you can ONLY return a python list of str, WITHOUT any other add
 
 def get_reflect_prompt(
    question: str,
+   collections: List[str],
    mini_questions: List[str],
    mini_chuncks: List[str],
 ):
@@ -40,7 +41,8 @@ If the original query is to write a report, then you prefer to generate some fur
 
 
 def get_final_answer_prompt(
-   question: str, 
+   question: str,
+   collections: List[str],
    mini_questions: List[str],
    mini_chuncks: List[str],
 ):
