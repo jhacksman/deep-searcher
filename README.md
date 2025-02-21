@@ -69,8 +69,22 @@ The following environment variables can be configured in a `.env` file:
 - `OPENAI_BASE_URL`: Base URL for OpenAI-compatible API (e.g., https://api.venice.ai/v1)
 - `OPENAI_API_KEY`: API key for authentication
 - `OPENAI_MODEL`: Model to use (e.g., deepseek-r1-671b)
+- `DB_PATH`: Local path for Milvus database file (e.g., ./milvus.db)
 
 You can copy the `.env.example` file to `.env` and update the values according to your setup.
+
+### Milvus Setup
+DeepSearcher uses Milvus Lite for vector storage, which is automatically included when you install the package. The installation process is handled through requirements.txt, which includes:
+- pymilvus[model]>=2.5.4 (includes Milvus Lite)
+- protobuf==3.20.0
+- grpcio-tools
+
+When you run `uv pip install -e .`, all necessary Milvus components are installed in your uv environment. No separate installation or Docker setup is required.
+
+To configure Milvus:
+1. Copy `.env.example` to `.env`
+2. Set `DB_PATH` in your `.env` file (defaults to ./milvus.db)
+3. The database file will be created automatically when you first run the application
 
 ### Quick start demo
 DeepSearcher provides an interactive demo that guides you through setup and querying:
