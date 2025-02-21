@@ -1,4 +1,5 @@
 argparse
+click>=8.0.0
 firecrawl-py
 langchain_text_splitters
 pdfplumber
