@@ -4,9 +4,9 @@ from deepsearcher.llm.base import BaseLLM, ChatResponse
 
 
 class OpenAI(BaseLLM):
-    def __init__(self, model: str = "gpt-4o", **kwargs):
+    def __init__(self, model: str = None, **kwargs):
         from openai import OpenAI as OpenAI_
-        self.model = model
+        self.model = model or os.getenv("OPENAI_MODEL", "gpt-4o")
         if "api_key" in kwargs:
             api_key = kwargs.pop("api_key")
         else:
@@ -14,7 +14,7 @@ class OpenAI(BaseLLM):
         if "base_url" in kwargs:
             base_url = kwargs.pop("base_url")
         else:
-            base_url = None
+            base_url = os.getenv("OPENAI_BASE_URL")
         self.client = OpenAI_(api_key=api_key, base_url=base_url, **kwargs)
 
 
