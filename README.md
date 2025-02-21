@@ -73,27 +73,49 @@ The following environment variables can be configured in a `.env` file:
 You can copy the `.env.example` file to `.env` and update the values according to your setup.
 
 ### Quick start demo
-```python
-from deepsearcher.configuration import Configuration, init_config
-from deepsearcher.online_query import query
+DeepSearcher provides an interactive demo that guides you through setup and querying:
 
-config = Configuration()
+```bash
+# Install dependencies in uv environment
+uv pip install -e .
 
-# Customize your config here,
-# more configuration see the Configuration Details section below.
-config.set_provider_config("llm", "OpenAI", {"model": "gpt-4o-mini"})
-init_config(config = config)
+# Run interactive demo
+python demo.py
+```
 
-# Load your local data
-from deepsearcher.offline_loading import load_from_local_files
-load_from_local_files(paths_or_directory=your_local_path)
+The demo will:
+1. Check your .env file for existing configuration:
+   - OpenAI base URL, API key, and model
+   - Database path
+2. For each found value, confirm if it's correct [Y/n]
+3. For any missing values, prompt you to enter them
+4. Guide you through:
+   - Loading data (from local file or website)
+   - Asking your question
+   - Viewing the response
 
-# (Optional) Load from web crawling (`FIRECRAWL_API_KEY` env variable required)
-from deepsearcher.offline_loading import load_from_website
-load_from_website(urls=website_url)
+Example interaction:
+```
+Welcome to DeepSearcher Interactive Demo!
 
-# Query
-result = query("Write a report about xxx.") # Your question here
+Step 1: Configure OpenAI API
+Found OPENAI_BASE_URL in environment: https://api.venice.ai/v1
+Is this correct? [Y/n]: Y
+Found OPENAI_API_KEY in environment: ********
+Is this correct? [Y/n]: Y
+Found OPENAI_MODEL in environment: deepseek-r1-671b
+Is this correct? [Y/n]: Y
+
+Step 2: Configure local database
+Could not find DB_PATH in .env file or environment
+Please enter value for DB_PATH [./milvus.db]: 
+
+Step 3: Load data
+Load from (1) local file or (2) website URL? [1/2]: 1
+Enter path to local file: ./docs/example.pdf
+
+Step 4: Ask a question
+Enter your question: Write a report about machine learning
 ```
 ### Configuration Details:
 #### LLM Configuration
