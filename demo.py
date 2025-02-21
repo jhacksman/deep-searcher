@@ -17,19 +17,23 @@ def confirm_env_var(var_name: str, default: str = None, hide_input: bool = False
     current_value = os.getenv(var_name)
     
     if current_value:
-        click.echo(f"Found {var_name}: {current_value if not hide_input else '*' * 8}")
-        if not click.confirm("Is this correct?", default=True):
+        # Show found value and confirm
+        display_value = '*' * 8 if hide_input else current_value
+        click.echo(f"Found {var_name} in environment: {display_value}")
+        if not click.confirm("Is this correct? [Y/n]", default=True):
             current_value = click.prompt(
-                f"Enter new {var_name}",
+                f"Please enter new value for {var_name}",
                 default=default,
                 hide_input=hide_input
             )
     else:
-        click.echo(f"Could not find {var_name} in environment")
+        # Prompt for missing value
+        click.echo(f"Could not find {var_name} in .env file or environment")
         current_value = click.prompt(
-            f"Please enter {var_name}",
+            f"Please enter value for {var_name}",
             default=default,
-            hide_input=hide_input
+            hide_input=hide_input,
+            prompt_suffix=": "  # Cleaner prompt format
         )
     
     return current_value
