@@ -13,6 +13,7 @@ def generate_gap_queries(
     llm = configuration.llm
     reflect_prompt = get_reflect_prompt(
         question=original_query,
+        collections=["deepsearcher"],  # Default collection name
         mini_questions=all_sub_queries,
         mini_chuncks=[chunk.text for chunk in all_chunks],
     )
