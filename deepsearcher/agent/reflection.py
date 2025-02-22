@@ -12,9 +12,9 @@ def generate_gap_queries(
 ) -> Tuple[List[str], int]:
     llm = configuration.llm
     reflect_prompt = get_reflect_prompt(
-        question=original_query,
-        mini_questions=all_sub_queries,
-        mini_chuncks=[chunk.text for chunk in all_chunks],
+        original_query,
+        all_sub_queries,
+        [chunk.text for chunk in all_chunks]
     )
     chat_response = llm.chat([{"role": "user", "content": reflect_prompt}])
     response_content = chat_response.content
