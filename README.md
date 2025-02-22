@@ -70,6 +70,7 @@ The following environment variables can be configured in a `.env` file:
 - `OPENAI_API_KEY`: API key for authentication
 - `OPENAI_MODEL`: Model to use (e.g., deepseek-r1-671b)
 - `DB_PATH`: Local path for Milvus database file (e.g., ./milvus.db)
+- `FIRECRAWL_API_KEY`: API key for web crawling (required if using option 2 in demo.py)
 
 You can copy the `.env.example` file to `.env` and update the values according to your setup.
 
