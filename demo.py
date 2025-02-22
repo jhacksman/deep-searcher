@@ -7,12 +7,7 @@ from deepsearcher.configuration import Configuration, init_config
 # Suppress unnecessary logging
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-config = Configuration()
-config.set_provider_config("llm", "OpenAI", {
-    "base_url": "https://api.venice.ai/v1",
-    "api_key": "B9Y68yQgatQw8wmpmnIMYcGip1phCt-43CS0OktZU6",
-    "model": "deepseek-r1-671b"
-})
+config = Configuration()  # Customize your config here
 init_config(config=config)
 
 # Load data from example.com
