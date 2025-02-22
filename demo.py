@@ -1,6 +1,6 @@
 import logging
 import os
-from deepsearcher.offline_loading import load_from_website
+from deepsearcher.offline_loading import load_from_local_files
 from deepsearcher.online_query import query
 from deepsearcher.configuration import Configuration, init_config
 
