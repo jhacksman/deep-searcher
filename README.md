@@ -21,102 +21,48 @@ DeepSearcher combines reasoning LLMs (OpenAI o1, o3-mini, DeepSeek, Grok 3 etc.)
 ## 📖 Quick Start
 
 ### Installation
-Install DeepSearcher using either uv (recommended) or pip:
+Install DeepSearcher using pip:
 
-#### Using uv (Recommended)
-
-##### Linux
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh && \
-git clone https://github.com/jhacksman/deep-searcher.git && cd deep-searcher && \
-uv venv && source .venv/bin/activate && uv pip install -e .
-```
-
-##### Windows
-```cmd
-# Download uv from https://github.com/astral/uv/releases, then:
-git clone https://github.com/jhacksman/deep-searcher.git && cd deep-searcher && \
-uv venv && .venv\Scripts\activate && uv pip install -e .
-```
-
-##### macOS
-```bash
-# Install Homebrew if not installed
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install uv
-brew install uv
-
-# Verify installation
-uv --version
-
-# Clone and set up project
+# Clone the repository
 git clone https://github.com/jhacksman/deep-searcher.git
 cd deep-searcher
 
 # Create and activate virtual environment
-uv venv
-source .venv/bin/activate
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Install project dependencies
-uv pip install -e .
+# Install dependencies
+pip install -e .
 ```
 
-
-
-### Environment Variables
-The following environment variables can be configured in a `.env` file:
-- `OPENAI_BASE_URL`: Base URL for OpenAI-compatible API (e.g., https://api.venice.ai/v1)
-- `OPENAI_API_KEY`: API key for authentication
-- `OPENAI_MODEL`: Model to use (e.g., deepseek-r1-671b)
-
-You can copy the `.env.example` file to `.env` and update the values according to your setup.
-
-### Quick start demo
-DeepSearcher provides an interactive demo that guides you through setup and querying:
-
+### Configuration
+1. Copy `.env.example` to `.env` and configure:
 ```bash
-# Install dependencies in uv environment
-uv pip install -e .
+OPENAI_BASE_URL=https://api.venice.ai/api/v1
+OPENAI_API_KEY=your-api-key
+OPENAI_MODEL=deepseek-r1-671b
+FIRECRAWL_API_KEY=your-firecrawl-api-key  # Required for website loading
+DB_PATH=./milvus.db
+```
 
-# Run interactive demo
+2. Run the demo:
+```bash
 python demo.py
 ```
 
-The demo will:
-1. Check your .env file for existing configuration:
-   - OpenAI base URL, API key, and model
-   - Database path
-2. For each found value, confirm if it's correct [Y/n]
-3. For any missing values, prompt you to enter them
-4. Guide you through:
-   - Loading data (from local file or website)
-   - Asking your question
-   - Viewing the response
+3. To load data, edit demo.py and uncomment either:
+```python
+# Load from website:
+website_url = "https://example.com"
+load_from_website(urls=website_url, collection_name="example", collection_description="Example website content")
 
-Example interaction:
+# Or load from local file:
+load_from_local_files(paths_or_directory="path/to/file", collection_name="local", collection_description="Local content")
 ```
-Welcome to DeepSearcher Interactive Demo!
 
-Step 1: Configure OpenAI API
-Found OPENAI_BASE_URL in environment: https://api.venice.ai/v1
-Is this correct? [Y/n]: Y
-Found OPENAI_API_KEY in environment: ********
-Is this correct? [Y/n]: Y
-Found OPENAI_MODEL in environment: deepseek-r1-671b
-Is this correct? [Y/n]: Y
-
-Step 2: Configure local database
-Could not find DB_PATH in .env file or environment
-Please enter value for DB_PATH [./milvus.db]: 
-
-Step 3: Load data
-Load from (1) local file or (2) website URL? [1/2]: 1
-Enter path to local file: ./docs/example.pdf
-
-Step 4: Ask a question
-Enter your question: Write a report about machine learning
-```
+### Vector Database
+DeepSearcher uses Milvus Lite for vector storage, which is automatically installed with the package. No separate setup is required - the database will be initialized when you first use DeepSearcher.
 ### Configuration Details:
 #### LLM Configuration
 
