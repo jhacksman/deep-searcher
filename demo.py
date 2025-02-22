@@ -12,6 +12,9 @@ This demo showcases the complete DeepSearcher architecture:
    - Reflection loop
    - Final report generation
 """
+import os
+from dotenv import load_dotenv
+import click
 import logging
 from deepsearcher.offline_loading import load_from_local_files, load_from_website
 from deepsearcher.online_query import query
@@ -21,35 +24,84 @@ from deepsearcher.configuration import Configuration, init_config
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 def main():
-    # Initialize configuration
-    config = Configuration()
-    init_config(config=config)
+    """Interactive demo for DeepSearcher."""
+    click.echo("Welcome to DeepSearcher Interactive Demo!")
+    click.echo("This demo showcases the complete DeepSearcher architecture.\n")
+    
+    try:
+        # Load environment variables
+        load_dotenv()
+        
+        # Initialize configuration
+        config = Configuration()
+        init_config(config)
+        
+        while True:
+            click.echo("\n=== Data Ingestion Layer ===")
+            click.echo("1. Load from website")
+            click.echo("2. Load from local file")
+            click.echo("3. Exit")
+            
+            choice = click.prompt("\nEnter choice", type=click.Choice(['1', '2', '3']))
+            
+            if choice == '1':
+                url = click.prompt("\nEnter website URL (e.g. https://example.com)")
+                if not url.startswith(("http://", "https://")):
+                    click.echo("\nError: Invalid URL. Must start with http:// or https://", err=True)
+                    continue
+                    
+                click.echo(f"\nLoading website content from {url}...")
+                try:
+                    load_from_website(
+                        urls=url,
+                        collection_name="web_content", 
+                        collection_description="Website content"
+                    )
+                except Exception as e:
+                    click.echo(f"\nError loading website: {str(e)}", err=True)
+                    continue
 
-    print("\n=== Data Ingestion Layer ===")
-    
-    # Load website content
-    print("\nLoading website content...")
-    load_from_website(
-        urls="https://example.com",
-        collection_name="web_content",
-        collection_description="Example website content"
-    )
+            elif choice == '2':
+                path = click.prompt("\nEnter path to local file")
+                if not os.path.exists(path):
+                    click.echo("\nError: File not found", err=True)
+                    continue
+                    
+                click.echo(f"\nLoading file from {path}...")
+                try:
+                    load_from_local_files(
+                        paths_or_directory=path,
+                        collection_name="local_content",
+                        collection_description="Local file content"
+                    )
+                except Exception as e:
+                    click.echo(f"\nError loading file: {str(e)}", err=True)
+                    continue
 
-    print("\n=== Online Serving Layer ===")
-    print("1. LLM breaks down query into sub-queries")
-    print("2. Vector database performs semantic search")
-    print("3. Reflection analyzes knowledge gaps")
-    print("4. Final report summarizes findings")
-    
-    # Example query that will trigger reflection
-    question = "Compare the architecture and performance of Milvus with other vector databases. Include specific metrics and use cases."
-    
-    print(f"\nQuery: {question}")
-    result, _, consumed_token = query(question)
-    
-    print("\n=== Final Report ===")
-    print(result)
-    print(f"\nTokens consumed: {consumed_token}")
+            elif choice == '3':
+                click.echo("\nExiting...")
+                break
+
+            # After successful data loading, proceed with query
+            click.echo("\n=== Online Serving Layer ===")
+            click.echo("1. LLM breaks down query into sub-queries")
+            click.echo("2. Vector database performs semantic search") 
+            click.echo("3. Reflection analyzes knowledge gaps")
+            click.echo("4. Final report summarizes findings")
+
+            question = click.prompt("\nEnter your query")
+            click.echo(f"\nProcessing query: {question}")
+            
+            try:
+                result, _, consumed_token = query(question)
+                click.echo("\n=== Final Report ===")
+                click.echo(result)
+                click.echo(f"\nTokens consumed: {consumed_token}")
+            except Exception as e:
+                click.echo(f"\nError processing query: {str(e)}", err=True)
+    except Exception as e:
+        click.echo(f"\nError: {str(e)}", err=True)
+        raise
 
 if __name__ == "__main__":
     main()
