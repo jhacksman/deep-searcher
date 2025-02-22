@@ -1,4 +1,5 @@
 import logging
+import os
 from deepsearcher.offline_loading import load_from_website
 from deepsearcher.online_query import query
 from deepsearcher.configuration import Configuration, init_config
@@ -8,9 +9,9 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 config = Configuration()
 config.set_provider_config("llm", "OpenAI", {
-    "base_url": "https://api.venice.ai/api/v1",
-    "api_key": "B9Y68yQgatQw8wmpmnIMYcGip1phCt-43CS0OktZU6",
-    "model": "deepseek-r1-671b"
+    "api_base": os.getenv("OPENAI_BASE_URL", "https://api.venice.ai/v1"),
+    "api_key": os.getenv("OPENAI_API_KEY"),
+    "model": os.getenv("OPENAI_MODEL", "deepseek-r1-671b")
 })
 init_config(config=config)
 
