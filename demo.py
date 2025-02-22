@@ -10,12 +10,11 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 config = Configuration()  # Customize your config here
 init_config(config=config)
 
-# Load data from example.com
-website_url = "https://example.com"
-load_from_website(
-    urls=website_url,
-    collection_name="example",
-    collection_description="Example website content"
+# Load data from local file
+load_from_local_files(
+    paths_or_directory="examples/data/WhatisMilvus.pdf",
+    collection_name="milvus_docs",
+    collection_description="All Milvus Documents"
 )
 
 # Query example
