@@ -8,7 +8,7 @@ from deepsearcher.offline_loading import load_from_local_files, load_from_websit
 from deepsearcher.online_query import query
 
 # Constants
-DEFAULT_BASE_URL = "https://api.venice.ai/v1"
+DEFAULT_BASE_URL = "https://api.venice.ai/api/v1"
 DEFAULT_MODEL = "deepseek-r1-671b"
 DEFAULT_DB_PATH = "./milvus.db"
 

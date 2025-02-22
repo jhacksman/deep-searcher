@@ -66,7 +66,7 @@ uv pip install -e .
 
 ### Environment Variables
 The following environment variables can be configured in a `.env` file:
-- `OPENAI_BASE_URL`: Base URL for OpenAI-compatible API (e.g., https://api.venice.ai/v1)
+- `OPENAI_BASE_URL`: Base URL for OpenAI-compatible API (e.g., https://api.venice.ai/api/v1)
 - `OPENAI_API_KEY`: API key for authentication
 - `OPENAI_MODEL`: Model to use (e.g., deepseek-r1-671b)
 - `DB_PATH`: Local path for Milvus database file (e.g., ./milvus.db)
