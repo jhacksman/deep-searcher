@@ -11,8 +11,9 @@ def main():
     # Initialize configuration with venice.ai settings
     config = Configuration()
     config.set_provider_config("llm", "OpenAI", {
-        "base_url": os.getenv("OPENAI_BASE_URL", "https://api.venice.ai/api/v1"),
-        "model": os.getenv("OPENAI_MODEL", "deepseek-r1-671b")
+        "base_url": os.getenv("OPENAI_BASE_URL", "https://api.venice.ai/v1"),
+        "model": os.getenv("OPENAI_MODEL", "deepseek-r1-671b"),
+        "api_key": os.getenv("OPENAI_API_KEY")
     })
     init_config(config)
 
