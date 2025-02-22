@@ -33,11 +33,6 @@ class TestPrompt(unittest.TestCase):
     
     def test_reflect_prompt(self):
         question = "What is the meaning of life?"
-        collections = [
-            "Philosophical Literature",
-            "Psychological Research",
-            "Cultural and Religious Beliefs",
-            ]
         mini_questions = [
             "What insights do historical philosophers provide about the purpose and meaning of life?",
             "How do studies on human well-being and sense of purpose contribute to our understanding of life's meaning?",
@@ -48,7 +43,7 @@ class TestPrompt(unittest.TestCase):
             "Studies suggest that a sense of purpose enhances well-being, linking meaningfulness to active engagement with worthwhile activities. Viktor Frankl's logotherapy highlights finding meaning through personal values and relationships, even in adversity.",
             "Eastern philosophies like Buddhism seek enlightenment to escape suffering, while Abrahamic religions emphasize serving God. Taoism advocates harmony with nature, and existentialism posits that individuals must create their own meaning.",
             ]
-        p = prompt.get_reflect_prompt(question, collections, mini_questions, mini_chuncks)
+        p = prompt.get_reflect_prompt(question, mini_questions, mini_chuncks)
         log.info("\n" + p)
 
         """ prompt llm output example: gpt-4o-mini
@@ -72,11 +67,6 @@ class TestPrompt(unittest.TestCase):
     
     def test_final_answer_prompt(self):
         question = "What is the meaning of life?"
-        collections = [
-            "Philosophical Literature",
-            "Psychological Research",
-            "Cultural and Religious Beliefs",
-            ]
         mini_questions = [
             "What insights do historical philosophers provide about the purpose and meaning of life?",
             "How do studies on human well-being and sense of purpose contribute to our understanding of life's meaning?",
@@ -87,7 +77,7 @@ class TestPrompt(unittest.TestCase):
             "Studies suggest that a sense of purpose enhances well-being, linking meaningfulness to active engagement with worthwhile activities. Viktor Frankl's logotherapy highlights finding meaning through personal values and relationships, even in adversity.",
             "Eastern philosophies like Buddhism seek enlightenment to escape suffering, while Abrahamic religions emphasize serving God. Taoism advocates harmony with nature, and existentialism posits that individuals must create their own meaning.",
             ]
-        p = prompt.get_final_answer_prompt(question, collections, mini_questions, mini_chuncks)
+        p = prompt.get_final_answer_prompt(question, mini_questions, mini_chuncks)
         log.info("\n" + p)
 
         """ prompt llm output example: gpt-4o-mini
