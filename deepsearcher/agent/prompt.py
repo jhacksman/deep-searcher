@@ -18,7 +18,6 @@ When you return, you can ONLY return a python list of str, WITHOUT any other add
 
 def get_reflect_prompt(
    question: str,
-   collections: List[str],
    mini_questions: List[str],
    mini_chuncks: List[str],
 ):
@@ -29,11 +28,10 @@ def get_reflect_prompt(
 
 If the original query is to write a report, then you prefer to generate some further queries, instead return an empty list.
 
-    Original Query: {question}
-    Previous Sub Queries: {mini_questions}
-    Related Chunks: 
-    {mini_chunk_str}
-    """
+Original Query: {question}
+Previous Sub Queries: {mini_questions}
+Related Chunks: 
+{mini_chunk_str}"""
    
     
     footer = """Respond exclusively in valid List of str format without any other text."""
@@ -42,7 +40,6 @@ If the original query is to write a report, then you prefer to generate some fur
 
 def get_final_answer_prompt(
    question: str,
-   collections: List[str],
    mini_questions: List[str],
    mini_chuncks: List[str],
 ):
@@ -51,9 +48,8 @@ def get_final_answer_prompt(
         mini_chunk_str += f"""<chunk_{i}>\n{chunk}\n</chunk_{i}>\n"""
     summary_prompt = f"""You are a AI content analysis expert, good at summarizing content. Please summarize a specific and detailed answer or report based on the previous queries and the retrieved document chunks.
 
-    Original Query: {question}
-    Previous Sub Queries: {mini_questions}
-    Related Chunks: 
-    {mini_chunk_str}
-    """
+Original Query: {question}
+Previous Sub Queries: {mini_questions}
+Related Chunks: 
+{mini_chunk_str}"""
     return summary_prompt
