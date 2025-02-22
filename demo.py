@@ -16,14 +16,13 @@ def main():
     })
     init_config(config)
 
-    # Load data (uncomment and modify as needed)
-    # From website:
-    # website_url = "https://example.com"
-    # load_from_website(
-    #     urls=website_url,
-    #     collection_name="example",
-    #     collection_description="Example website content"
-    # )
+    # Load data from example.com
+    website_url = "https://example.com"
+    load_from_website(
+        urls=website_url,
+        collection_name="example",
+        collection_description="Example website content"
+    )
 
     # From local file:
     # load_from_local_files(
