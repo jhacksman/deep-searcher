@@ -26,13 +26,14 @@ async def async_query(
     retrieval_res, all_sub_queries, retrieve_conseumed_token = await async_retrieve(
         original_query, max_iter
     )
-    ### GENERATE FINAL ANSWER ###
-    log.color_print("<think> Generating final answer... </think>\n")
+    # Generate final answer
+    if log.is_dev_mode():
+        log.debug("Generating final answer...")
     final_answer, final_consumed_token = generate_final_answer(
         original_query, all_sub_queries, retrieval_res
     )
-    log.color_print("\n==== FINAL ANSWER====\n")
-    log.color_print(final_answer)
+    print("\n==== FINAL ANSWER ====")
+    print(final_answer)
     return final_answer, retrieval_res, retrieve_conseumed_token + final_consumed_token
 
 
@@ -65,7 +66,8 @@ async def async_retrieve(
     sub_gap_queries = sub_queries
 
     for iter in range(max_iter):
-        log.color_print(f">> Iteration: {iter + 1}\n")
+        if log.is_dev_mode():
+            log.debug(f"Iteration {iter + 1}")
         search_res_from_vectordb = []
         search_res_from_internet = []  # TODO
 
@@ -86,21 +88,20 @@ async def async_retrieve(
         # search_res_from_internet = deduplicate_results(search_res_from_internet)
         all_search_res.extend(search_res_from_vectordb + search_res_from_internet)
 
-        ### REFLECTION & GET GAP QUERIES ###
-        log.color_print("<think> Reflecting on the search results... </think>\n")
+        # Generate gap queries based on reflection
+        if log.is_dev_mode():
+            log.debug("Reflecting on search results...")
         sub_gap_queries, consumed_token = generate_gap_queries(
             original_query, all_sub_queries, all_search_res
         )
         total_tokens += consumed_token
         if not sub_gap_queries:
-            log.color_print(
-                "<think> No new search queries were generated. Exiting. </think>\n"
-            )
+            if log.is_dev_mode():
+                log.debug("No new search queries generated. Exiting.")
             break
         else:
-            log.color_print(
-                f"<think> New search queries for next iteration: {sub_gap_queries} </think>\n"
-            )
+            if log.is_dev_mode():
+                log.debug(f"New search queries for next iteration: {sub_gap_queries}")
             all_sub_queries.extend(sub_gap_queries)
 
     all_search_res = deduplicate_results(all_search_res)

@@ -80,9 +80,8 @@ async def search_chunks_from_vectordb(query: str, sub_queries: List[str]):
                 accepted_chunk_num += 1
                 references.append(retrieved_result.reference)
         if accepted_chunk_num > 0:
-            log.color_print(
-                f"<search> Accept {accepted_chunk_num} document chunk(s) from references: {references} </search>\n"
-            )
+            if log.is_dev_mode():
+                log.debug(f"Accepted {accepted_chunk_num} chunks from references: {references}")
     return all_retrieved_results, consume_tokens
 
     # vector_db.search_data(collection="deepsearcher", vector=query_embedding)
