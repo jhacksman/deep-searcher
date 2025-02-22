@@ -69,6 +69,7 @@ The following environment variables can be configured in a `.env` file:
 - `OPENAI_BASE_URL`: Base URL for OpenAI-compatible API (e.g., https://api.venice.ai/api/v1)
 - `OPENAI_API_KEY`: API key for authentication
 - `OPENAI_MODEL`: Model to use (e.g., deepseek-r1-671b)
+- `FIRECRAWL_API_KEY`: API key for web crawling functionality (required for website loading)
 - `DB_PATH`: Local path for Milvus database file (e.g., ./milvus.db)
 
 You can copy the `.env.example` file to `.env` and update the values according to your setup.
