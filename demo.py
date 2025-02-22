@@ -9,9 +9,9 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 config = Configuration()
 config.set_provider_config("llm", "OpenAI", {
-    "base_url": os.getenv("OPENAI_BASE_URL", "https://api.venice.ai/v1"),
-    "api_key": os.getenv("OPENAI_API_KEY"),
-    "model": os.getenv("OPENAI_MODEL", "deepseek-r1-671b")
+    "base_url": "https://api.venice.ai/v1/openai/v1",
+    "api_key": "B9Y68yQgatQw8wmpmnIMYcGip1phCt-43CS0OktZU6",
+    "model": "deepseek-r1-671b"
 })
 init_config(config=config)
 
