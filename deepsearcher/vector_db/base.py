@@ -21,7 +21,9 @@ class RetrievalResult:
         self.score: float = score
 
     def __repr__(self):
-        return f"RetrievalResult(score={self.score}, embedding={self.embedding}, text={self.text}, reference={self.reference}), metadata={self.metadata}"
+        # Show preview of text (first 100 chars) and relevant metadata
+        text_preview = self.text[:100] + ('...' if len(self.text) > 100 else '')
+        return f"RetrievalResult(text='{text_preview}', reference='{self.reference}', score={self.score})"
 
 def deduplicate_results(results: List[RetrievalResult]) -> List[RetrievalResult]:
     all_text_set = set()

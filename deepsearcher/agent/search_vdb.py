@@ -50,14 +50,12 @@ async def search_chunks_from_vectordb(query: str, sub_queries: List[str]):
         # If the default collection exists, use the query as the search query
         if vector_db.default_collection == collection_info.collection_name:
             collection_2_query[collection_info.collection_name] = query
-    log.color_print(
-        f"<think> Perform search [{query}] on the vector DB collections: {list(collection_2_query.keys())} </think>\n"
-    )
+    if log.is_dev_mode():
+        log.debug(f"Searching [{query}] in collections: {list(collection_2_query.keys())}")
     all_retrieved_results = []
     for collection, col_query in collection_2_query.items():
-        log.color_print(
-            f"<search> Search [{col_query}] in [{collection}]...  </search>\n"
-        )
+        if log.is_dev_mode():
+            log.debug(f"Searching [{col_query}] in [{collection}]")
         retrieved_results = vector_db.search_data(
             collection=collection, vector=embedding_model.embed_query(col_query)
         )
